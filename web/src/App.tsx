@@ -1,5 +1,7 @@
+import Habit from "./components/Habit/Habit";
+
 function App() {
-  return <div>App React</div>;
+  return <Habit completed={3} />;
 }
 
 export default App;

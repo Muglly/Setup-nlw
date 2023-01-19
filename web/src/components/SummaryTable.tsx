@@ -1,7 +1,11 @@
+import { generateRangeDatesFromYearStart } from "../utils/generate-range-dates-from-year-start";
 import { HabitDay } from "./HabitDay";
 
 export function SummaryTable() {
   const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
+  const summaryDates = generateRangeDatesFromYearStart();
+
+  console.log(summaryDates);
 
   return (
     <div className="w-full flex">
@@ -19,21 +23,9 @@ export function SummaryTable() {
       </div>
 
       <div className="grid grid-rows-7 grid-flow-col gap-3">
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
-        <HabitDay />
+        {summaryDates.map((date) => {
+          return <HabitDay key={`Day-${date}`} />;
+        })}
       </div>
     </div>
   );

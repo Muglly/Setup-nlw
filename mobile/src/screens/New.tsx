@@ -1,10 +1,45 @@
-import { View, ScrollView, Text, TextInput } from "react-native";
+import {
+  View,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { BackButton } from "../components/BackButton";
+import { Checkbox } from "../components/Checkbox";
+import { Feather } from "@expo/vector-icons";
+import colors from "tailwindcss/colors";
+import { useState } from "react";
+
+const availableWeekDays = [
+  "Domingo",
+  "Segunda-Feira",
+  "Terça-Feira",
+  "Quarta-Feira",
+  "Quinta-Feira",
+  "Sexta-Feira",
+  "Sábado",
+];
 
 export function New() {
+  const [weekDays, setWeekDays] = useState<number[]>([]);
+
+  const handleToggleWeekDays = (weekDayIndex: number) => {
+    if (weekDays.includes(weekDayIndex)) {
+      setWeekDays((preveState) =>
+        preveState.filter((weekDays) => weekDays !== weekDayIndex)
+      );
+    } else {
+      setWeekDays((preveState) => [...preveState, weekDayIndex]);
+    }
+  };
+
   return (
     <View className="flex-1 bg-background px-8 pt-16">
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
         <BackButton />
 
         <Text className="mt-6 text-white font-extrabold text-3xl">
@@ -15,7 +50,35 @@ export function New() {
           Qual seu novo hábito?
         </Text>
 
-        <TextInput className="h-12 pl-4 rounded-lg mt-3 bg-zinc-800 text-white focus:border-2 focus:border-green-600" />
+        <TextInput
+          placeholder="Berber água, estudar, etc..."
+          className="h-12 pl-4 rounded-lg mt-3 bg-zinc-800 text-white focus:border-2 focus:border-green-600 "
+          placeholderTextColor={colors.zinc[400]}
+        />
+
+        <Text className="font-semibold mt-4 mb-3 text-white text-base">
+          Quais os dias?
+        </Text>
+
+        {availableWeekDays.map((weekDay, index) => (
+          <Checkbox
+            key={`${weekDay}-${index}`}
+            title={weekDay}
+            checked={weekDays.includes(index)}
+            onPress={() => handleToggleWeekDays(index)}
+          />
+        ))}
+
+        <TouchableOpacity
+          activeOpacity={0.7}
+          className="w-full h-14 flex-row items-center justify-center bg-green-600 rounded-md mt-6"
+        >
+          <Feather name="check" size={20} color={colors.white} />
+
+          <Text className="font-semibold text-base text-white ml-2">
+            Confirmar
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );

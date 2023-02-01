@@ -68,7 +68,7 @@ Após iniciar o backend/servidor, abra o terminal de comando dentro da pasta web
 
 A página abrirá no endereço:
 
-> http://localhost:3000
+> http://localhost:5173
 Dados em tela refletem os dados do banco de Dados, conforme os habitos forem sendo criados.
 
 <hr>
